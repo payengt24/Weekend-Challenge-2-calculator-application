@@ -1,0 +1,32 @@
+
+    $('.allButton').on('click', function (){
+        let value = $(this).val();
+        $('#output').val($('#output').val() + value);
+        // $('#historyList').append('<li>' + value + '</li>')
+    })
+
+    $('#buttonEqual').on('click', function (){
+        const newInput = {input: $('#output').val()};
+        // console.log("input: " + newInput.input);
+        $.ajax({
+            method: 'POST',
+            url: '/calculate',
+            data: {
+                input: $('#output').val()
+            }
+        })
+        .then(function (response) {
+            getResult();
+        });
+    })
+
+    function getResult(){
+        $.ajax({
+            method: 'request',
+            url: '/result',
+        })
+        .then(function (response) {
+            console.log(response);
+        });
+    };
+}
